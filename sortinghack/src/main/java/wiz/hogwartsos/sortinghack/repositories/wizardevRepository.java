@@ -13,4 +13,6 @@ public interface wizardevRepository extends JpaRepository<wizardev,Long>
     List<wizardev> findByLanghouseId(langhouse id);
 
     List<wizardev> findByNameContainingIgnoreCase(String name);
+
+    List<wizardev> findByYearGreaterThan(int year);
 }

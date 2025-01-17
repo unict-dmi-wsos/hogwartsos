@@ -21,9 +21,11 @@ public class wizardev {
     @ManyToOne
     @JoinColumn(name = "langhouse_id")
     private langhouse langhouseId;
+    
     public wizardev() {
     }
-    public wizardev(long id, String name, int year, langhouse langhouse_id) {
+    
+    public wizardev(long id, String name, int year, langhouse langhouseId) {
         this.id = id;
         this.name = name;
         this.year = year;

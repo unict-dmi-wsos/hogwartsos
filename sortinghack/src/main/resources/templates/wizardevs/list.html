@@ -103,13 +103,16 @@
 <body>
     <h1>Welcome to HogWartSOS</h1>
     <h2>WizardDev List</h2>
-    <div th:if="${langhouse != null && langhouse.name != null}" th:text="'Filter By Langhouse:'+${langhouse.name}">
-        Filter 
-     </div>
+    <div th:if="${langhouse != null && langhouse.name != null}"> 
+        Filter By Langhouse:
+            Id: <span th:text="${langhouse.name}"/>
+            Motto: <span th:text="${langhouse.motto}"/>
+    </div>
+    
      <div th:if="${search != null && search != null}" th:text="'Filter By Name:'+${search}">
         Filter 
      </div>
-    <p>We have <span th:text="${#lists.size(wizardevs)}"/> wizardevs in the School</p>
+    <p>We have <span th:text="${#lists.size(wizardevs)}">Size</span> wizardevs in the School</p>
     <table>
     <tr>
         <th>Id</th>
@@ -139,6 +142,13 @@
         <button type="submit">Filter</button>
     </form>
 
+    <h1>Filter by Year</h1>
+    <form th:action="@{/wizardevs/findByYearGreaterThan}" method="post">
+        <select name="year">
+            <option th:each="year : ${years}" th:value="${year}" th:text="${year}">year</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form> 
     <a th:href="@{/wizardevs}">WizardDevs</a>
     
     <a th:href="@{/langhouses}">langhouses</a>

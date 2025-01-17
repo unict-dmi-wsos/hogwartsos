@@ -1,5 +1,9 @@
 package wiz.hogwartsos.sortinghack.controllers;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -24,6 +28,7 @@ public class wizardevController {
 
     private final wizardevRepository repository;
     private final langhouseRepository lrepository;
+    List<Integer> years = Arrays.asList(1,2,3,4,5,6,7);
 
     public wizardevController(wizardevRepository repository,langhouseRepository lrepository) {
         this.repository = repository;
@@ -33,14 +38,16 @@ public class wizardevController {
 
     @GetMapping("/wizardevs")
     public String read(Model model) {
+        
         model.addAttribute("wizardevs", repository.findAll());
+        model.addAttribute("years", years);
         return("wizardevs/list");
     }
 
     @GetMapping("/wizardevs/new")
     public String create(Model model) {
         model.addAttribute("wizardev", new wizardev());
-        model.addAttribute("langhouses", lrepository.findAll());        
+        model.addAttribute("langhouses", lrepository.findAll());  ;      
         return("wizardevs/edit");
     }
 
@@ -70,6 +77,14 @@ public class wizardevController {
         langhouse langhouse = lrepository.getReferenceById(langhouse_id);
         model.addAttribute("wizardevs", repository.findByLanghouseId(langhouse));
         model.addAttribute("langhouse", langhouse);
+        model.addAttribute("years", years);
+        return("wizardevs/list");
+    }
+    
+    @PostMapping("/wizardevs/findByYearGreaterThan")
+    public String findByYearGreaterThan(Model model,@RequestParam Integer year) {
+        model.addAttribute("wizardevs", repository.findByYearGreaterThan(year));
+        model.addAttribute("years", years);
         return("wizardevs/list");
     }
     
